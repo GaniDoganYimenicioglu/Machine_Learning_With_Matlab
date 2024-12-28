@@ -11,12 +11,12 @@ data = data(:, 2:end); % İlk sütun çıkarıldı
 dataRows = size(data, 1);
 
 % [mmc type, cutting speed, feed rate, cooling/lubrication]
-inputsValues_Teaching = data{1:130, 1:4};
+inputValues_Teaching = data{1:130, 1:4};
 outputValues_Teaching = data{1:130, 5:8};
 
 % Test verileri
 % [surface roughness, flank wear, cutting temperature, energy consumption]
-inputsValues_Test = data{131:end, 1:4};
+inputValues_Test = data{131:end, 1:4};
 outputValues_Test = data{131:end, 5:8};
 
 %% Hata hesaplama fonksiyonları
@@ -39,10 +39,10 @@ predictions = zeros(size(outputValues_Test)); % Test tahminleri için yer ayır
 
 for i = 1:numOutputs
     % Mevcut çıktı için model oluştur
-    mdl = fitlm(inputsValues_Teaching, outputValues_Teaching(:, i));
+    mdl = fitlm(inputValues_Teaching, outputValues_Teaching(:, i));
     
     % Test verileri ile tahmin yap
-    predictions(:, i) = predict(mdl, inputsValues_Test);
+    predictions(:, i) = predict(mdl, inputValues_Test);
 end
 
 %% Hata metriklerinin hesaplanması
